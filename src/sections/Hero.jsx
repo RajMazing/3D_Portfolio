@@ -8,7 +8,7 @@ import {useMediaQuery} from "react-responsive";
 
 
 const Hero = () => {
-    const x = useControls('HackerRoom', {
+    const controls = useControls('HackerRoom', {
         positionX: {
             value: 2.5,
             min: -10,
@@ -50,6 +50,7 @@ const Hero = () => {
 
 
 
+
     return (
         <section className="min-h-screen w-full flex flex-col relative">
             <div className="w-full mx-auto flex flex-col sm:mt-36 mt-20 c-space gap-3">
@@ -74,7 +75,7 @@ const Hero = () => {
                                     // rotation={[x.rotationX, x.rotationY, x.rotationZ]}
                             rotation={[0, -Math.PI, 0]}
                                     // scale={[x.scale, x.scale, x.scale]}
-                            scale={isMobile ? 0.07: 0.1}
+                            scale={isMobile ? controls.scale : 0.1}
 
                         />
 

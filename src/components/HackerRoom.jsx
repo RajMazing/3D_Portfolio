@@ -1,5 +1,4 @@
 
-import {useRef} from "react";
 import { useGLTF, useTexture } from '@react-three/drei';
 
 export const HackerRoom = (props) => {
@@ -33,7 +32,7 @@ export const HackerRoom = (props) => {
         </group>
     );
 
-    console.log('Materials:', materials);
+
 }
 
 
