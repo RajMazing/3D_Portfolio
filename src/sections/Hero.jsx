@@ -9,6 +9,7 @@ import {calculateSizes} from "../constants/index.js";
 import Target from "../components/Target.jsx";
 import ReactLogo from '../components/ReactLogo.jsx'
 import Cube from "../components/Cube.jsx";
+import Rings from "../components/Rings.jsx";
 
 
 const Hero = () => {
@@ -28,7 +29,7 @@ const Hero = () => {
                 <p className="sm:text-3xl text-2xl font-medium text-white text-center font-generalsans">Hi, I am
                     Casey <span className="waving-hand"> 👋</span></p>
 
-                <p className="hero_tag text-gray_gradient"> a developer building innovative apps. </p>
+                <p className="hero_tag text-gray_gradient "> a developer building innovative apps. </p>
             </div>
             <div className="w-full h-full absolute inset-0">
                 {/*<Leva />*/}
@@ -50,6 +51,7 @@ const Hero = () => {
                             <Target position={sizes.targetPosition}/>
                             <ReactLogo position={sizes.reactLogoPosition}/>
                             <Cube position={sizes.cubePosition}/>
+                            <Rings position={sizes.ringPosition}/>
 
                         </group>
 
