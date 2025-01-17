@@ -9,7 +9,7 @@ const ReactLogo = (props) => {
 
     return (
         <Float floatIntensity={1}>
-            <group position={[8, 8, 0]} scale={0.3} {...props} dispose={null}>
+            <group position={[8, 8, 0]} scale={0.4} {...props} dispose={null}>
                 <mesh
 
                     geometry={nodes['React-Logo_Material002_0'].geometry}

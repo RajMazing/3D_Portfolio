@@ -10,6 +10,8 @@ import Target from "../components/Target.jsx";
 import ReactLogo from '../components/ReactLogo.jsx'
 import Cube from "../components/Cube.jsx";
 import Rings from "../components/Rings.jsx";
+import HeroCamera from "../components/HeroCamera.jsx";
+import Button from "../components/Button.jsx";
 
 
 const Hero = () => {
@@ -21,7 +23,7 @@ const Hero = () => {
     const sizes = calculateSizes(isSmall, isMobile, isTablet);
 
 
-    console.log(sizes.reactLogoPosition)
+
     return (
         <section className="min-h-screen w-full flex flex-col relative">
             <div className="w-full mx-auto flex flex-col sm:mt-36 mt-20 c-space gap-3">
@@ -29,13 +31,15 @@ const Hero = () => {
                 <p className="sm:text-3xl text-2xl font-medium text-white text-center font-generalsans">Hi, I am
                     Casey <span className="waving-hand"> 👋</span></p>
 
-                <p className="hero_tag text-gray_gradient "> a developer building innovative apps. </p>
+                <p className="hero_tag text-gray_gradient "> a seasoned developer building innovative apps. </p>
             </div>
             <div className="w-full h-full absolute inset-0">
                 {/*<Leva />*/}
                 <Canvas className="w-full h-full">
                     <Suspense fallback={<CanvasLoader/>}>
                         <PerspectiveCamera makeDefault position={[0, 0, 30]}/>
+
+                        <HeroCamera isMobile={isMobile}>
                         <HackerRoom
 
 
@@ -44,6 +48,8 @@ const Hero = () => {
                             rotation={[0.1, -Math.PI, 0]}
 
                             scale={sizes.deskScale}/>
+
+                        </HeroCamera>
 
 
                         <group>
@@ -63,7 +69,14 @@ const Hero = () => {
 
 
                 </Canvas>
+            </div>
 
+            <div className="absolute bottom-7 left-0 right-0 w-full z-10 c-space">
+
+                <a href="#contact" className="w-fit">
+                    <Button name={"Let's work together"} isBeam containerClass="sm:w-fit w-full sm:min-w-96"/>
+
+                </a>
             </div>
         </section>
     )
