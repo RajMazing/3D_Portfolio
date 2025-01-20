@@ -55,6 +55,8 @@ export const clientReviews = [
             'Adrian was a pleasure to work with. He understood our requirements perfectly and delivered a website that exceeded our expectations. His skills in both frontend backend dev are top-notch.',
     },
 ];
+// switch the values for my Projects and Work experiences to my personal work!
+
 
 export const myProjects = [
     {
