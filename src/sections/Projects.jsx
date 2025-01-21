@@ -1,8 +1,27 @@
 
 import {myProjects} from "../constants/index.js";
+import {useState} from "react";
+import {Canvas} from "@react-three/fiber";
 
+
+
+const projectCount = myProjects.length;
 const Projects = () => {
-    const currentProject = myProjects[0];
+
+    const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
+    const currentProject = myProjects[selectedProjectIndex];
+
+    const handleNavigation = (direction) => {
+    setSelectedProjectIndex((prevIndex) =>{
+        if(direction === 'previous') {
+            return prevIndex === 0 ? projectCount - 1 : prevIndex - 1;
+        } else {
+            return prevIndex === projectCount - 1 ? 0 : prevIndex + 1;
+        }
+    })
+
+
+    }
     return (
         <section className={"c-space my-20"}>
             <p class="head-text"> My Works</p>
@@ -12,9 +31,11 @@ const Projects = () => {
                     <div class="absolute top-10 right--0">
                         <img src={currentProject.spotlight} alt="spotlight" className={"w-full h-96 object-cover rounded-xl"} />
                     </div>
+                    {/**/}
                     <div className="p-3 backdrop-filter backdrop-blur-3xl w-fit rounded-lg" style={currentProject.logoStyle}>
                         <img src={currentProject.logo} alt="logo" className={"w-10 h-10 shadow-sm"}/>
                     </div>
+
                     <div className="flex flex-col gap-5 text-white-600 my-5">
                         <p className="text-white text-2xl font-semibold animatedText">
                             {currentProject.title}
@@ -23,6 +44,8 @@ const Projects = () => {
                         <p className="animatedText">{currentProject.description}</p>
                         <p className="animatedText">{currentProject.subdesc}</p>
                     </div>
+
+
                     <div className="flex items-center justify-between flex-wrap gap-5">
                         <div className="flex items-center gap-3">
 
@@ -38,6 +61,23 @@ const Projects = () => {
                             <img src="/assets/arrow-up.png" alt="arrow" className={"w-3 h-3"} />
                         </a>
                     </div>
+
+                        <div className="flex justify-between items-center mt-7">
+                            <button className="arrow-btn" onClick={() => handleNavigation('previous')}>
+                                <img src="/assets/left-arrow.png" alt="left arrow" className={"w-4 h-4"} />
+                            </button>
+                            <button className="arrow-btn" onClick={() => handleNavigation('previous')}>
+                                <img src="/assets/right-arrow.png" alt="right arrow" className={"w-4 h-4"} />
+                            </button>
+
+                    </div>
+                </div>
+
+                <div className="border border-black-300 bg-black-200 rounded-lg h-96 md:h-full">
+                    <Canvas>
+                        <ambientLight intensity={1} />
+                        <directionalLight position={[10, 10, 5]} />
+                    </Canvas>
                 </div>
             </div>
         </section>
