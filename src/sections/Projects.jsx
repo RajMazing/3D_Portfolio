@@ -1,7 +1,10 @@
 
 import {myProjects} from "../constants/index.js";
-import {useState} from "react";
+import {Suspense, useState} from "react";
 import {Canvas} from "@react-three/fiber";
+import {Center} from "@react-three/drei";
+import CanvasLoader from "../components/CanvasLoader.jsx";
+import DemoComputer from "../components/DemoComputer.jsx";
 
 
 
@@ -77,6 +80,14 @@ const Projects = () => {
                     <Canvas>
                         <ambientLight intensity={1} />
                         <directionalLight position={[10, 10, 5]} />
+                        <Center>
+                            <Suspense fallback={<CanvasLoader />}>
+                                <group scale={2} position={[0, -3, 0]}  rotation={[0,-0.1, 0]}>
+                                    <DemoComputer />
+                                </group>
+
+                            </Suspense>
+                            </Center>
                     </Canvas>
                 </div>
             </div>
