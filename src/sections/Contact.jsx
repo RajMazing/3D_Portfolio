@@ -21,7 +21,7 @@ const Contact = () => {
 
 
             <div className="relative min-h-screen flex items-center justify-center flex-col">
-                <img src="/assets/terminal.png" alt="terminal background" className="absolute inset-0 minh-screen"/>
+                <img src="/assets/terminal.png" alt="terminal background" className="absolute inset-0 min-h-screen"/>
 
                 <div className="contact-container">
                     <h3 className="head-text">
@@ -51,9 +51,13 @@ const Contact = () => {
                         <label className="space-y-3">
                             <span className="field-label">Your Message</span>
                             <textarea name={"message"} value={form.message} onChange={handleChange} required
-                                   rows={5} className="field-input" placeholder={"Share your thoughts or inquiries..."}/>
+                                   rows={5} className="field-input" placeholder={"Hello! I'm looking for ..."}/>
                         </label>
 
+                        <button className="field-btn" type={"submit"} disabled={loading}>
+                            {loading ? 'Sending...' : 'Send Message'}
+                            <img src="/assets/arrow-up.png" alt="arrow-up" className={"field-btn_arrow"}/>
+                        </button>
 
                     </form>
 
