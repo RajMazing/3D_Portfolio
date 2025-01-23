@@ -1,5 +1,7 @@
 import {useRef, useState} from "react"
 
+import emailjs from '@emailjs/browser';
+
 
 const Contact = () => {
     const formRef = useRef();
@@ -10,11 +12,41 @@ const Contact = () => {
         message: ''
     });
 
-    const handleChange = () => {
+    const handleChange = ({target: {name, value}}) => {
+        setForm({...form, [name]: value})
     }
-    const handleSubmit = () => {
-    }
+    const handleSubmit = async (e) => {
+        e.preventDefault()
 
+        setLoading(true)
+
+
+        try {
+          await  emailjs.send("service_ta031dr", "template_nuqj64n", {
+                from_name: form.name,
+                to_name: "Casey",
+                from_email: form.email,
+                to_email: 'caseyraj92@gmail.com',
+                message: form.message,
+            },
+              'rhYhS5NmdiNtxGBdd')
+
+            setLoading(false)
+
+            alert('Your message has been sent successfully!')
+            // Clear the form state after successful submission
+            setForm({ name: "", email: "", message: "" });
+
+        } catch(error) {
+            setLoading(false)
+            console.log(error)
+            alert('Something went wrong, please try again!')
+
+        }
+
+
+    }
+//
 
     return (
         <section className={"c-space my-20"} id={"contact"}>
