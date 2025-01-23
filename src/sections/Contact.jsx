@@ -1,6 +1,4 @@
-
-import { useRef, useState } from "react"
-
+import {useRef, useState} from "react"
 
 
 const Contact = () => {
@@ -12,8 +10,10 @@ const Contact = () => {
         message: ''
     });
 
-    const handleChange = () => {}
-    const handleSubmit = () => {}
+    const handleChange = () => {
+    }
+    const handleSubmit = () => {
+    }
 
 
     return (
@@ -21,7 +21,7 @@ const Contact = () => {
 
 
             <div className="relative min-h-screen flex items-center justify-center flex-col">
-                <img src="/assets/terminal.png" alt="terminal background" className="absolute inset-0 minh-screen" />
+                <img src="/assets/terminal.png" alt="terminal background" className="absolute inset-0 minh-screen"/>
 
                 <div className="contact-container">
                     <h3 className="head-text">
@@ -34,6 +34,25 @@ const Contact = () => {
                     </p>
 
                     <form ref={formRef} onSubmit={handleSubmit} className={"mt-12 flex flex-col space-y-7"}>
+
+                        <label className="space-y-3">
+                            <span className="field-label">Full Name</span>
+                            <input type="text" name={"name"} value={form.name} onChange={handleChange} required
+                                   className="field-input" placeholder={"eg., John Doe"}/>
+                        </label>
+
+                        <label className="space-y-3">
+                            <span className="field-label">Email</span>
+                            <input type="email" name={"email"} value={form.email} onChange={handleChange} required
+                                   className="field-input" placeholder={"eg., johndoe@example.com"}/>
+                        </label>
+
+
+                        <label className="space-y-3">
+                            <span className="field-label">Your Message</span>
+                            <textarea name={"message"} value={form.message} onChange={handleChange} required
+                                   rows={5} className="field-input" placeholder={"Share your thoughts or inquiries..."}/>
+                        </label>
 
 
                     </form>
