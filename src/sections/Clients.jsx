@@ -1,9 +1,9 @@
-import React from 'react'
+
 import {clientReviews} from "../constants/index.js";
 
 const Clients = () => {
     return (
-        <section className={"c-space my-20"} id={clients}>
+        <section className={"c-space my-20"} id={"clients"}>
 
             <h3 class="head-text">Hear from My Clients</h3>
             <div class="client-container">
