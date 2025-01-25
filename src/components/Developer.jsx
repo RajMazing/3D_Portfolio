@@ -1,45 +1,30 @@
 import { useEffect, useRef } from 'react';
 import { useAnimations, useFBX, useGLTF } from '@react-three/drei';
 
-const Developer = ({ animationName = 'victory', ...props }) => {
+const Developer = ({ animationName = 'idle', ...props }) => {
     const group = useRef();
     const { nodes, materials } = useGLTF('/models/animations/Developer.glb');
 
-    // Load animations with error handling
-    const loadAnimation = (path, name) => {
-        try {
-            const { animations } = useFBX(path);
-            animations[0].name = name; // Assign a name for referencing
-            return animations[0];
-        } catch (error) {
-            console.error(`Failed to load animation "${name}" from ${path}:`, error);
-            return null; // Return null if loading fails
-        }
-    };
 
-    // Load all animations
-    const idleAnimation = loadAnimation('/models/animations/idle.fbx', 'idle');
-    const saluteAnimation = loadAnimation('/models/animations/salute.fbx', 'salute');
-    const clappingAnimation = loadAnimation('/models/animations/clapping.fbx', 'clapping');
-    const victoryAnimation = loadAnimation('/models/animations/victory.fbx', 'victory');
+    const { animations: idleAnimation } = useFBX('/models/animations/idle.fbx');
+    const { animations: saluteAnimation } = useFBX('/models/animations/salute.fbx');
+    const { animations: clappingAnimation } = useFBX('/models/animations/clapping.fbx');
+    const { animations: victoryAnimation } = useFBX('/models/animations/victory.fbx');
 
-    // Filter out null animations (in case of errors)
-    const validAnimations = [idleAnimation, saluteAnimation, clappingAnimation, victoryAnimation].filter(Boolean);
+    idleAnimation[0].name = 'idle';
+    saluteAnimation[0].name = 'salute';
+    clappingAnimation[0].name = 'clapping';
+    victoryAnimation[0].name = 'victory';
 
-    const { actions } = useAnimations(validAnimations, group);
+    const { actions } = useAnimations(
+        [idleAnimation[0], saluteAnimation[0], clappingAnimation[0], victoryAnimation[0]],
+        group,
+    );
 
-    // Use animationName to control the animation
     useEffect(() => {
-        if (!actions || !actions[animationName]) {
-            console.warn(`Animation "${animationName}" not found.`);
-            return;
-        }
-
-        const action = actions[animationName];
-        action.reset().fadeIn(0.5).play();
-
-        return () => action.fadeOut(0.5);
-    }, [actions, animationName]);
+        actions[animationName].reset().fadeIn(0.5).play();
+        return () => actions[animationName].fadeOut(0.5);
+    }, [animationName]);
 
     return (
         <group {...props} dispose={null} ref={group}>
