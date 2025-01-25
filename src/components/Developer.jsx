@@ -1,11 +1,48 @@
+import { useEffect, useRef } from 'react';
+import { useAnimations, useFBX, useGLTF } from '@react-three/drei';
 
-import  { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
+const Developer = ({ animationName = 'victory', ...props }) => {
+    const group = useRef();
+    const { nodes, materials } = useGLTF('/models/animations/Developer.glb');
 
-const Developer = (props) => {
-    const { nodes, materials } = useGLTF('/models/human/Developer.glb')
+    // Load animations with error handling
+    const loadAnimation = (path, name) => {
+        try {
+            const { animations } = useFBX(path);
+            animations[0].name = name; // Assign a name for referencing
+            return animations[0];
+        } catch (error) {
+            console.error(`Failed to load animation "${name}" from ${path}:`, error);
+            return null; // Return null if loading fails
+        }
+    };
+
+    // Load all animations
+    const idleAnimation = loadAnimation('/models/animations/idle.fbx', 'idle');
+    const saluteAnimation = loadAnimation('/models/animations/salute.fbx', 'salute');
+    const clappingAnimation = loadAnimation('/models/animations/clapping.fbx', 'clapping');
+    const victoryAnimation = loadAnimation('/models/animations/victory.fbx', 'victory');
+
+    // Filter out null animations (in case of errors)
+    const validAnimations = [idleAnimation, saluteAnimation, clappingAnimation, victoryAnimation].filter(Boolean);
+
+    const { actions } = useAnimations(validAnimations, group);
+
+    // Use animationName to control the animation
+    useEffect(() => {
+        if (!actions || !actions[animationName]) {
+            console.warn(`Animation "${animationName}" not found.`);
+            return;
+        }
+
+        const action = actions[animationName];
+        action.reset().fadeIn(0.5).play();
+
+        return () => action.fadeOut(0.5);
+    }, [actions, animationName]);
+
     return (
-        <group {...props} dispose={null}>
+        <group {...props} dispose={null} ref={group}>
             <primitive object={nodes.Hips} />
             <skinnedMesh
                 name="EyeLeft"
@@ -73,9 +110,9 @@ const Developer = (props) => {
                 skeleton={nodes.Wolf3D_Body.skeleton}
             />
         </group>
-    )
-}
+    );
+};
 
-useGLTF.preload('/models/human/Developer.glb')
+useGLTF.preload('/models/animations/Developer.glb');
 
-export default Developer
+export default Developer;
