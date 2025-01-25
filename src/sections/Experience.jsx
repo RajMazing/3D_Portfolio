@@ -13,16 +13,46 @@ const Experience = () => {
                 <div className="work-container">
                     <div className="work-canvas">
 
-                        <Canvas>
-                            <ambientLight intesity={7} />
-                            <spotlight position={[10,10,10]} angle={0.15} penubra={1} />
-                            <directionalLight position={[10,10,10]} intensity={1} />
-                            <OrbitControls enableZoom={false} maxPolarAngle={Math.PI /2} />
-                            <Suspense fallback={<CanvasLoader />}>
+                        <Canvas shadows gl={{ toneMappingExposure: 2.5 }}>
+                            {/* Ambient light for general illumination */}
+                            <ambientLight intensity={1.2} />
 
+                            {/* Strong but balanced spotlight */}
+                            <spotLight
+                                position={[30, 50, 30]} // Positioned above and to the side
+                                angle={0.55}            // Moderate cone width
+                                penumbra={0.4}          // Softer edges for realism
+                                intensity={4}           // Slightly reduced brightness
+                                castShadow              // Enable shadows for depth
+                                shadow-mapSize-width={4096} // High-quality shadows
+                                shadow-mapSize-height={4096}
+                            />
+
+                            {/* Directional light for highlights */}
+                            <directionalLight
+                                position={[-20, 30, 20]} // Positioned to balance the spotlight
+                                intensity={2.5}          // Reduced intensity for a softer effect
+                                castShadow               // Enable shadows
+                                shadow-mapSize-width={4096}
+                                shadow-mapSize-height={4096}
+                            />
+
+                            {/* Fill light to reduce harsh shadows */}
+                            <pointLight
+                                position={[10, 10, -10]} // Positioned behind the model
+                                intensity={1.8}          // Lower intensity for subtle fill lighting
+                            />
+
+                            {/* Interaction controls */}
+                            <OrbitControls enableZoom={true} maxPolarAngle={Math.PI / 2} />
+
+                            {/* Model with a fallback loader */}
+                            <Suspense fallback={<CanvasLoader />}>
                                 <Developer position-y={-3} scale={3} />
                             </Suspense>
                         </Canvas>
+
+
                     </div>
                     <div className="work-content">
                         <div className="sm:py-10 py-5 sm:px-5 px-2.5">
@@ -52,3 +82,7 @@ const Experience = () => {
 };
 
 export default Experience;
+
+
+
+
